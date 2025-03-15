@@ -62,3 +62,4 @@ Le script affichera l'adresse du contrat déployé, l'adresse du propriétaire e
 - Symbole : IBX
 - Décimales : 18
 - Approvisionnement total : 49,475,801.901629 IBX
+- Adresse du contrat sur Gnosis Chain : [0xd3a33c5D350a377f0779Fb241D9807c0244eB076](https://gnosisscan.io/address/0xd3a33c5D350a377f0779Fb241D9807c0244eB076)

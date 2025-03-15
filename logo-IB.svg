@@ -1,0 +1,112 @@
+<svg
+    width="900"
+    height="900"
+    viewBox="0 0 300 300"
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    baseProfile="full"
+>
+  <!-- ========= DÉFINITIONS & RESSOURCES ========= -->
+  <defs>
+    <!-- 1) Dégradé radial pour le fond circulaire clair -->
+    <radialGradient id="bgGradient" cx="50%" cy="50%" r="60%">
+      <!-- Fond clair, partant d’un gris très pâle vers un gris moyen -->
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </radialGradient>
+
+    <!-- Top V: dégradé inversé (plus sombre) -->
+    <linearGradient id="strokeGradientTop" x1="0%" y1="0%" x2="100%" y2="0%">
+      <!-- Des bords plus clairs (#cccccc) vers un centre foncé (#444444) -->
+      <stop offset="0%"   stop-color="#ffffff" />
+      <stop offset="25%"  stop-color="#ffffff" />
+      <stop offset="50%"  stop-color="#ffffff" />
+      <stop offset="75%"  stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+
+    <!-- Bottom V: idem, sombre -->
+    <linearGradient id="strokeGradientBottom" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#ffffff" />
+      <stop offset="25%"  stop-color="#ffffff" />
+      <stop offset="50%"  stop-color="#ffffff" />
+      <stop offset="75%"  stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+
+    <!-- 3) Filtre (halo) -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- 3) Filtre pour un effet de relief/speculaire -->
+    <filter id="relief" x="-50%" y="-50%" width="200%" height="200%">
+      <!-- On floute l'alpha pour mieux gérer la specular -->
+      <feGaussianBlur in="SourceAlpha" stdDeviation="" result="blur" />
+
+      <!-- Applique un éclairage spéculaire -->
+      <feSpecularLighting
+        in="blur"
+        surfaceScale="1"
+        specularConstant="0.4"
+        specularExponent="30"
+        lighting-color="#ffffff"
+        result="specOut"
+      >
+        <feDistantLight azimuth="100" elevation="40" />
+      </feSpecularLighting>
+
+      <!-- Combine la brillance au tracé d'origine -->
+      <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOnShape" />
+
+      <!-- Fusionne la forme initiale et l'effet speculaire -->
+      <feMerge>
+        <feMergeNode in="SourceGraphic" />
+        <feMergeNode in="specOnShape" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ========= FOND CIRCULAIRE CLAIR ========= -->
+  <circle
+    cx="150"
+    cy="150"
+    r="150"
+    fill="url(#bgGradient)"
+  />
+
+  <!-- ========= DEUX V : FONCÉS, UN EN HAUT, UN EN BAS ========= -->
+<g transform="translate(150, 150) scale(1.3)">
+  <!-- V du bas (inversé) -->
+  <g filter="url(#relief)">
+    <g filter="url(#glow)">
+      <path
+        d="M -50 70 L 0 0 L 50 70"
+        fill="none"
+        stroke="url(#strokeGradientBottom)"
+        stroke-width="18"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </g>
+  </g>
+
+  <!-- V du haut -->
+  <g filter="url(#relief)">
+    <g filter="url(#glow)">
+      <path
+        d="M -50 -70 L 0 0 L 50 -70"
+        fill="none"
+        stroke="url(#strokeGradientTop)"
+        stroke-width="18"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </g>
+  </g>
+</g>
+</svg>

@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-ethers");
+require("@nomicfoundation/hardhat-verify");
 require("dotenv").config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -46,5 +47,20 @@ module.exports = {
   // Ajouter cette configuration pour exclure les fichiers de node_modules
   mocha: {
     timeout: 40000
-  }
+  },
+  etherscan: {
+    apiKey: {
+      gnosis: "U6Y6B7I9BKQRRYDUYXRXGT7HAMV48K2Q7J", // Clé API Gnosis Scan
+    },
+    customChains: [
+      {
+        network: "gnosis",
+        chainId: 100,
+        urls: {
+          apiURL: "https://api.gnosisscan.io/api",
+          browserURL: "https://gnosisscan.io",
+        },
+      },
+    ],
+  },
 };
